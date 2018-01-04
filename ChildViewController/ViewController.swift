@@ -9,17 +9,43 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setupChildViewControllers()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: Outlet
+    
+    @IBOutlet weak var containerView1: UIView!
+    @IBOutlet weak var containerView2: UIView!
+    
+    // MARK: Private
+    
+    private let childViewController1: UIViewController = {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .red
+        return viewController
+    }()
+    
+    private let childViewController2: UIViewController = {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .yellow
+        return viewController
+    }()
+    
+    private func setupChildViewControllers() {
+        addAsChildViewController(childViewController1, inView: containerView1)
+        addAsChildViewController(childViewController2, inView: containerView2)
     }
-
-
+    
+    // MARK: IBAction
+    @IBAction func removeViewControllerButtonTouchUpInside(_ sender: UIButton) {
+        removeAsChildViewController(childViewController1)
+        removeAsChildViewController(childViewController2)
+    }
+    
 }
 
